@@ -1,0 +1,50 @@
+{
+  "applications": ["kernel"],
+  "changelogDate": "20220917081643",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "block",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "BlockType",
+      "fieldValues": "TEXT,IMAGE,HEADER,CODE"
+    },
+    {
+      "fieldName": "order",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "payload",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Block",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "organization",
+      "relationshipName": "organization",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "space",
+      "relationshipName": "space",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "article",
+      "relationshipName": "article",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "author",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

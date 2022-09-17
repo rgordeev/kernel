@@ -1,0 +1,130 @@
+<div>
+  <h2 id="page-heading" data-cy="SpaceHeading">
+    <span>Spaces</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-space"
+        [routerLink]="['/space/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Space </span>
+      </button>
+    </div>
+  </h2>
+
+  <suz-alert-error></suz-alert-error>
+
+  <suz-alert></suz-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="spaces?.length === 0">
+    <span>No Spaces found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="spaces && spaces.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr suzSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" suzSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" suzSortBy="title">
+            <div class="d-flex">
+              <span>Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" suzSortBy="projectCode">
+            <div class="d-flex">
+              <span>Project Code</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" suzSortBy="icon">
+            <div class="d-flex">
+              <span>Icon</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" suzSortBy="organization.id">
+            <div class="d-flex">
+              <span>Organization</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" suzSortBy="owner.id">
+            <div class="d-flex">
+              <span>Owner</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let space of spaces; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/space', space.id, 'view']">{{ space.id }}</a>
+          </td>
+          <td>{{ space.title }}</td>
+          <td>{{ space.projectCode }}</td>
+          <td>{{ space.icon }}</td>
+          <td>
+            <div *ngIf="space.organization">
+              <a [routerLink]="['/organization', space.organization.id, 'view']">{{ space.organization.id }}</a>
+            </div>
+          </td>
+          <td>
+            {{ space.owner?.id }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/space', space.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/space', space.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(space)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="spaces && spaces.length > 0">
+    <div class="d-flex justify-content-center">
+      <suz-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></suz-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

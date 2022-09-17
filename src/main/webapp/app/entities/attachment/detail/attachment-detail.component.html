@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="attachment">
+      <h2 data-cy="attachmentDetailsHeading"><span>Attachment</span></h2>
+
+      <hr />
+
+      <suz-alert-error></suz-alert-error>
+
+      <suz-alert></suz-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ attachment.id }}</span>
+        </dd>
+        <dt><span>Uuid</span></dt>
+        <dd>
+          <span>{{ attachment.uuid }}</span>
+        </dd>
+        <dt><span>Uri</span></dt>
+        <dd>
+          <span>{{ attachment.uri }}</span>
+        </dd>
+        <dt><span>File Name</span></dt>
+        <dd>
+          <span>{{ attachment.fileName }}</span>
+        </dd>
+        <dt><span>Mime Type</span></dt>
+        <dd>
+          <span>{{ attachment.mimeType }}</span>
+        </dd>
+        <dt><span>Length</span></dt>
+        <dd>
+          <span>{{ attachment.length }}</span>
+        </dd>
+        <dt><span>Organization</span></dt>
+        <dd>
+          <div *ngIf="attachment.organization">
+            <a [routerLink]="['/organization', attachment.organization.id, 'view']">{{ attachment.organization.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Space</span></dt>
+        <dd>
+          <div *ngIf="attachment.space">
+            <a [routerLink]="['/space', attachment.space.id, 'view']">{{ attachment.space.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Article</span></dt>
+        <dd>
+          <div *ngIf="attachment.article">
+            <a [routerLink]="['/article', attachment.article.id, 'view']">{{ attachment.article.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Owner</span></dt>
+        <dd>
+          <span>{{ attachment.owner?.id }}</span>
+        </dd>
+        <dt><span>Comment</span></dt>
+        <dd>
+          <div *ngIf="attachment.comment">
+            <a [routerLink]="['/comment', attachment.comment.id, 'view']">{{ attachment.comment.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/attachment', attachment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

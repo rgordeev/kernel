@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="article">
+      <h2 data-cy="articleDetailsHeading"><span>Article</span></h2>
+
+      <hr />
+
+      <suz-alert-error></suz-alert-error>
+
+      <suz-alert></suz-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ article.id }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ article.title }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ article.status }}</span>
+        </dd>
+        <dt><span>Organization</span></dt>
+        <dd>
+          <div *ngIf="article.organization">
+            <a [routerLink]="['/organization', article.organization.id, 'view']">{{ article.organization.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Space</span></dt>
+        <dd>
+          <div *ngIf="article.space">
+            <a [routerLink]="['/space', article.space.id, 'view']">{{ article.space.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Author</span></dt>
+        <dd>
+          <span>{{ article.author?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/article', article.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

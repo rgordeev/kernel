@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="suz-attachment-heading" data-cy="AttachmentCreateUpdateHeading">Create or edit a Attachment</h2>
+
+      <div>
+        <suz-alert-error></suz-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_uuid">Uuid</label>
+          <input type="text" class="form-control" name="uuid" id="field_uuid" data-cy="uuid" formControlName="uuid" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_uri">Uri</label>
+          <input type="text" class="form-control" name="uri" id="field_uri" data-cy="uri" formControlName="uri" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_fileName">File Name</label>
+          <input type="text" class="form-control" name="fileName" id="field_fileName" data-cy="fileName" formControlName="fileName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_mimeType">Mime Type</label>
+          <input type="text" class="form-control" name="mimeType" id="field_mimeType" data-cy="mimeType" formControlName="mimeType" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_length">Length</label>
+          <input type="number" class="form-control" name="length" id="field_length" data-cy="length" formControlName="length" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_organization">Organization</label>
+          <select
+            class="form-control"
+            id="field_organization"
+            data-cy="organization"
+            name="organization"
+            formControlName="organization"
+            [compareWith]="compareOrganization"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="organizationOption" *ngFor="let organizationOption of organizationsSharedCollection">
+              {{ organizationOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_space">Space</label>
+          <select class="form-control" id="field_space" data-cy="space" name="space" formControlName="space" [compareWith]="compareSpace">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="spaceOption" *ngFor="let spaceOption of spacesSharedCollection">{{ spaceOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_article">Article</label>
+          <select
+            class="form-control"
+            id="field_article"
+            data-cy="article"
+            name="article"
+            formControlName="article"
+            [compareWith]="compareArticle"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="articleOption" *ngFor="let articleOption of articlesSharedCollection">{{ articleOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_owner">Owner</label>
+          <select class="form-control" id="field_owner" data-cy="owner" name="owner" formControlName="owner" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_comment">Comment</label>
+          <select
+            class="form-control"
+            id="field_comment"
+            data-cy="comment"
+            name="comment"
+            formControlName="comment"
+            [compareWith]="compareComment"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="commentOption" *ngFor="let commentOption of commentsSharedCollection">{{ commentOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

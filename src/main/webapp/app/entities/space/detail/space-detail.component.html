@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="space">
+      <h2 data-cy="spaceDetailsHeading"><span>Space</span></h2>
+
+      <hr />
+
+      <suz-alert-error></suz-alert-error>
+
+      <suz-alert></suz-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ space.id }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ space.title }}</span>
+        </dd>
+        <dt><span>Project Code</span></dt>
+        <dd>
+          <span>{{ space.projectCode }}</span>
+        </dd>
+        <dt><span>Icon</span></dt>
+        <dd>
+          <span>{{ space.icon }}</span>
+        </dd>
+        <dt><span>Organization</span></dt>
+        <dd>
+          <div *ngIf="space.organization">
+            <a [routerLink]="['/organization', space.organization.id, 'view']">{{ space.organization.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Owner</span></dt>
+        <dd>
+          <span>{{ space.owner?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/space', space.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

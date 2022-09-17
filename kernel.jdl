@@ -1,0 +1,106 @@
+application {
+    config {
+        applicationType monolith,
+        authenticationType oauth2,
+        baseName kernel,
+        blueprints [],
+        buildTool gradle,
+        cacheProvider no,
+        clientFramework angularX,
+        clientPackageManager npm,
+        clientTheme none,
+        databaseType sql,
+        devDatabaseType h2Memory,
+        dtoSuffix DTO,
+        enableHibernateCache false,
+        enableSwaggerCodegen true,
+        enableTranslation false,
+        jhiPrefix suz,
+        jhipsterVersion "7.9.3",
+        languages [en, ru],
+        messageBroker false,
+        nativeLanguage en,
+        otherModules [],
+        packageName ru.amethyst.kernel,
+        prodDatabaseType postgresql,
+        reactive false,
+        searchEngine false,
+        serverPort 8080,
+        serviceDiscoveryType eureka,
+        skipClient false,
+        skipUserManagement true,
+        testFrameworks [gatling, cucumber],
+        websocket spring-websocket,
+    }
+    entities *
+}
+
+entity Organization {
+    title String
+}
+
+entity Space {
+    title String,
+    projectCode String,
+    icon String
+}
+
+enum ArticleStatus {
+    NEW,
+    EDITED,
+    TEMPLATE
+}
+
+entity Article {
+    title String,
+    status ArticleStatus
+}
+
+entity Comment {
+    text String
+}
+
+enum BlockType {
+    TEXT,
+    IMAGE,
+    HEADER,
+    CODE
+}
+
+entity Block {
+    type BlockType,
+    order Integer,
+    payload String
+}
+
+entity Attachment {
+    uuid UUID,
+    uri String,
+    fileName String,
+    mimeType String,
+    length Long
+}
+
+relationship ManyToOne {
+    Space{organization} to Organization,
+    Space{owner} to User,
+    Article{organization} to Organization,
+    Article{space} to Space,
+    Article{author} to User,
+    Block{organization} to Organization,
+    Block{space} to Space,
+    Block{article} to Article,
+    Block{author} to User,
+    Comment{article} to Article,
+    Comment{block} to Block,
+    Comment{author} to User,
+    Attachment{organization} to Organization,
+    Attachment{space} to Space,
+    Attachment{article} to Article,
+    Attachment{owner} to User,
+    Attachment{comment} to Comment
+}
+
+service * with serviceImpl
+paginate * with pagination
+dto * with mapstruct

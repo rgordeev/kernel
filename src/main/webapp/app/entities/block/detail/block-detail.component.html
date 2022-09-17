@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="block">
+      <h2 data-cy="blockDetailsHeading"><span>Block</span></h2>
+
+      <hr />
+
+      <suz-alert-error></suz-alert-error>
+
+      <suz-alert></suz-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ block.id }}</span>
+        </dd>
+        <dt><span>Type</span></dt>
+        <dd>
+          <span>{{ block.type }}</span>
+        </dd>
+        <dt><span>Order</span></dt>
+        <dd>
+          <span>{{ block.order }}</span>
+        </dd>
+        <dt><span>Payload</span></dt>
+        <dd>
+          <span>{{ block.payload }}</span>
+        </dd>
+        <dt><span>Organization</span></dt>
+        <dd>
+          <div *ngIf="block.organization">
+            <a [routerLink]="['/organization', block.organization.id, 'view']">{{ block.organization.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Space</span></dt>
+        <dd>
+          <div *ngIf="block.space">
+            <a [routerLink]="['/space', block.space.id, 'view']">{{ block.space.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Article</span></dt>
+        <dd>
+          <div *ngIf="block.article">
+            <a [routerLink]="['/article', block.article.id, 'view']">{{ block.article.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Author</span></dt>
+        <dd>
+          <span>{{ block.author?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/block', block.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
